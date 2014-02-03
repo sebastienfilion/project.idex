@@ -2,10 +2,10 @@ module.exports = function(grunt) {
 
     var copyrights, banner, footer;
 
-    copyrights = '/* http://idesignexperiences.com */\n\n';
+    copyrights = '/* <%= pkg.url %> */\n\n';
 
-    banner = '(function(<%= pkg.name %>, window, document, undefined) {';
-    footer = '}(window.<%= pkg.name %> = window.<%= pkg.name %> || {}. window, document));';
+    banner = '(function(<%= pkg.name %>, window, document, undefined) {\n';
+    footer = '\n }(window.<%= pkg.name %> = window.<%= pkg.name %> || {}. window, document));';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: ['source/scripts/*.js'],
-                dest: 'source/scripts/temp/<%= pkg.name %>.js'
+                dest: 'assets/scripts/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'assets/scripts/<%= pkg.name %>.min.js': ['source/scripts/<%= pkg.name %>.js']
+                    'assets/scripts/<%= pkg.name %>.min.js': ['assets/scripts/<%= pkg.name %>.js']
                 }
             }
         },
@@ -47,7 +47,20 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+        cssmin: {
+            add_banner: {
+                options: {
+                    banner: copyrights
+                }
+            },
+            minify: {
+                expand: true,
+                cwd: 'assets/stylesheets/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'assets/stylesheets/',
+                ext: '.min.css'
+            }
+        },
         imagemin: {
             dynamic: {
                 files: [{
@@ -58,7 +71,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        
         watch: {
             files: ['source/**'],
             tasks: ['jshint', 'concat', 'compass']
@@ -69,8 +81,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass', 'imagemin']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass', 'cssmin', 'imagemin']);
 };
