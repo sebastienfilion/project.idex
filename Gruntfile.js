@@ -47,6 +47,18 @@ module.exports = function(grunt) {
                 }
             }
         },
+        
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'assets/images/',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'assets/images/'
+                }]
+            }
+        },
+        
         watch: {
             files: ['source/**'],
             tasks: ['jshint', 'concat', 'uglify', 'compass']
@@ -57,7 +69,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass', 'imagemin']);
 };
