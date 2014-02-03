@@ -4,8 +4,8 @@ module.exports = function(grunt) {
 
     copyrights = '/* http://idesignexperiences.com */\n\n';
 
-    banner = '(function(idex, window, document, undefined) {';
-    footer = '}(window.idex = window.idex || {}. window, document));';
+    banner = '(function(<%= pkg.name %>, window, document, undefined) {';
+    footer = '}(window.<%= pkg.name %> = window.<%= pkg.name %> || {}. window, document));';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: ['source/scripts/*.js'],
-                dest: 'source/scripts/<%= pkg.name %>.js'
+                dest: 'source/scripts/temp/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         
         watch: {
             files: ['source/**'],
-            tasks: ['jshint', 'concat', 'uglify', 'compass']
+            tasks: ['jshint', 'concat', 'compass']
         }
     });
 
