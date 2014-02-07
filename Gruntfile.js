@@ -72,8 +72,17 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['source/**'],
-            tasks: ['jshint', 'concat', 'compass']
+            scripts: {
+                files: ['source/scripts/*.js'],
+                tasks: ['jshint', 'concat']
+            },
+            css: {
+                files: ['source/sass/*.scss'],
+                tasks: 'compass',
+                options: {
+                    livereload: true
+                }
+            }
         }
     });
 
