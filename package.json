@@ -1,6 +1,6 @@
 {
     "name": "name",
-    "url": "http://www.url.com/", // Used to output the copyright in the minified files
+    "url": "http://www.url.com/",
     "version": "0.1.0",
     "devDependencies": {
         "grunt": "~0.4.2",
