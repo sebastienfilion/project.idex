@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     copyrights = '/* <%= pkg.url %> */\n\n';
 
     banner = '(function(<%= pkg.name %>, window, document, undefined) {\n';
-    footer = '\n }(window.<%= pkg.name %> = window.<%= pkg.name %> || {}. window, document));';
+    footer = '\n }(window.<%= pkg.name %> = window.<%= pkg.name %> || {}, window, document));';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
